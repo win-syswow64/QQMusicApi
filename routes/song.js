@@ -3,9 +3,9 @@ const search = require('./search');
 const song = {
   '/': async ({req, res, request}) => {
     const url = 'http://u.y.qq.com/cgi-bin/musicu.fcg';
-    const {songmid, raw} = req.query;
+    const {songmid, raw, songid} = req.query;
 
-    if (!songmid) {
+    if (!songmid && !songid) {
       return res.send({
         result: 500,
         errMsg: 'songmid 不能为空',
@@ -16,9 +16,11 @@ const song = {
         songinfo: {
           method: 'get_song_detail_yqq',
           module: 'music.pf_song_detail_svr',
-          param: {
+          param: songmid? ({
             song_mid: songmid,
-          },
+          }) : ({
+            song_id: parseInt(songid),
+          }),
         },
       }),
     };
