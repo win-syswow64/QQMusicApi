@@ -17,11 +17,11 @@
 ### Node 服务
 
 ```shell script
-git clone git@github.com:jsososo/QQMusicApi.git
+git clone git@github.com:waylyrics/QQMusicApi.git
 
 yarn
 
-yarn start
+node ./bin/www
 ```
 
 ### Docker
