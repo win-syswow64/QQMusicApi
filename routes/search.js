@@ -1,6 +1,6 @@
 module.exports = {
-  '/': async ({req, res, request, globalCookie, cache}) => {
-    const obj = {...req.query, ...req.body};
+  '/': async ({ req, res, request, globalCookie, cache }) => {
+    const obj = { ...req.query, ...req.body };
     let { uin, qqmusic_key } = globalCookie.userCookie();
     if (Number(obj.ownCookie)) {
       uin = req.cookies.uin || uin;
@@ -61,7 +61,7 @@ module.exports = {
     }
     let result = {}
 
-    try {     
+    try {
       result = await request({
         url,
         method: 'POST',
@@ -84,7 +84,7 @@ module.exports = {
     const response = {
       result: 100,
       data: {
-        list: Number(t) === 0 ? formatSongList(result.req_1.data.body[typeMap[t]].list) : result.req_1.data.body[typeMap[t]].list,
+        list: (Number(t) === 0 ? formatSongList(result?.req_1?.data?.body[typeMap[t]]?.list) : result?.req_1?.data?.body[typeMap[t]]?.list) ?? [],
         pageNo,
         pageSize,
         total: result.req_1.data.meta.sum,
@@ -97,8 +97,8 @@ module.exports = {
   },
 
   // 热搜词
-  '/hot': async ({req, res, request}) => {
-    const {raw} = req.query;
+  '/hot': async ({ req, res, request }) => {
+    const { raw } = req.query;
     const result = await request({
       url: 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg',
     });
@@ -112,8 +112,8 @@ module.exports = {
   },
 
   // 快速搜索
-  '/quick': async ({req, res, request}) => {
-    const {raw, key} = req.query;
+  '/quick': async ({ req, res, request }) => {
+    const { raw, key } = req.query;
     if (!key) {
       return res.send({
         result: 500,
