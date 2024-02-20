@@ -48,4 +48,19 @@ module.exports = {
       data: dataStatistics.getList('blackList'),
     })
   },
+
+  '/rankList': ({res, dataStatistics}) => {
+    res.send({
+      result: 100,
+      data: dataStatistics.getList('rankList'),
+    })
+  },
+
+  '/updateRankList': ({req, res, dataStatistics}) => {
+    dataStatistics.writeRankList(req.body)
+    res.send({
+      result: 100,
+      data: dataStatistics.getList('rankList'),
+    })
+  },
 }
