@@ -25,6 +25,15 @@ class DataStatistics {
         jsonFile.writeFile('data/blackList.json', {});
       });
 
+    // 排名
+    jsonFile.readFile(path.join(__dirname, 'data/rankList.json'))
+      .then((res) => {
+        this.rankList = res;
+      }, (err) => {
+        this.rankList = [];
+        jsonFile.writeFile('data/rankList.json', []);
+      });
+
     jsonFile.readFile('data/tempList.json')
       .then((res) => {
         this.tempList = res;
@@ -213,6 +222,12 @@ class DataStatistics {
     delete this[nType][ip];
     delete this.tempList[ip];
     this.writeList();
+  }
+
+  writeRankList(rankList){
+    this.rankList=rankList
+    console.log("rankList="+JSON.stringify(rankList))
+    jsonFile.writeFile('data/rankList.json', rankList)
   }
 
   // 移除 黑/白 名单
